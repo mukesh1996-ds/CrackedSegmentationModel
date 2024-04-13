@@ -1,14 +1,4 @@
-from Cracked_Detection.logger import logging
-from Cracked_Detection.exception import AppException
-import sys
+from Cracked_Detection.pipeline.training_pipeline import TrainPipeline
 
-
-try:
-
-    a = 3/"small"
-except Exception as e:
-    raise AppException(e,sys)
-
-
-
-
+obj = TrainPipeline()
+obj.run_pipeline()
