@@ -162,3 +162,5 @@ artifact/*
 D:/CrackedSegmentationModel/artifacts/*
 artifacts/data_ingestion/feature_store/*
 artifacts/data_ingestion/data.zip
+data.zip
+D:/CrackedSegmentationModel/data.zip/*

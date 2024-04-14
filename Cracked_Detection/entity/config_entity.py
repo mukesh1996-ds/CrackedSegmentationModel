@@ -43,3 +43,5 @@ class ModelTrainerConfig:
     no_epochs = MODEL_TRAINER_NO_EPOCHS
 
     batch_size = MODEL_TRAINER_BATCH_SIZE
+
+    image_size = MODEL_TRAINER_IMAGE_SIZE
