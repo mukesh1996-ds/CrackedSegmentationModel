@@ -25,6 +25,7 @@ def get_latest_predict_folder():
     return os.path.join('runs/segment', latest_folder)
 
 
+
 def move_and_encode_latest_image_into_base64():
     latest_predict_folder = get_latest_predict_folder()
     
