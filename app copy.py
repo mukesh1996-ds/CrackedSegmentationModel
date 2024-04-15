@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, render_template
 from Cracked_Detection.pipeline.training_pipeline import TrainPipeline
-from Cracked_Detection.utils.main_utils import decodeImage, encodeImageIntoBase64
 from ultralytics import YOLO  
 import base64
 import os
@@ -53,32 +52,6 @@ def trainRoute():
     return "Training Successfull!!"
 
 
-import subprocess
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    if 'image' not in request.json:
-        return jsonify({'error': 'No image found in request'}), 400
-
-    image = request.json['image']
-    filename = "data/inputImage.jpg"
-    decodeImage(image, filename)
-
-    # Run YOLO prediction command
-    #subprocess.run(["cd", "yolov5/", "&&", "python", "detect.py", "--weights", "my_model.pt", "--img", "416", "--conf", "0.5", "--source", f"../{filename}"])
-    model = YOLO('runs/segment/train2/weights/best.pt')
-    results = model.predict(source=filename, save=True)
-    # Encode the resulting image into base64
-    opencodedbase64 = encodeImageIntoBase64("runs/segment/predict/inputImage.jpg")
-
-    # Remove the yolov5/runs folder
-    subprocess.run(["rm", "-rf", "runs/segment/predict"])
-
-    result = {"image": opencodedbase64.decode('utf-8')}
-
-    return jsonify(result), 200
-
-'''
 @app.route('/predict', methods=['POST'])
 def predict():
     if 'image' not in request.json:
@@ -96,6 +69,6 @@ def predict():
     result = {"image": opencodedbase64.decode('utf-8')}
 
     return jsonify(result), 200
-'''
+
 if __name__ == '__main__':
     app.run(debug=True)
