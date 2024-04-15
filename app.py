@@ -16,19 +16,21 @@ def decodeImage(encoded_image, filename):
 
 def get_latest_predict_folder():
     predict_folders = [folder for folder in os.listdir('runs/segment') if folder.startswith('predict')]
-    sorted_folders = sorted(predict_folders, reverse=True)
-    if sorted_folders:
-        latest_folder = sorted_folders[0]
-        return os.path.join('runs/segment', latest_folder)
-    else:
+    if not predict_folders:
         return None
+    
+    predict_numbers = [int(folder.replace('predict', '')) for folder in predict_folders]
+    latest_number = max(predict_numbers)
+    latest_folder = f"predict{latest_number}"
+    return os.path.join('runs/segment', latest_folder)
+
 
 def move_and_encode_latest_image_into_base64():
     latest_predict_folder = get_latest_predict_folder()
     
     if latest_predict_folder:
         input_image_path = os.path.join(latest_predict_folder, 'inputImage.jpg')
-        destination_folder = "runs/final_prediction"
+        destination_folder = os.mkdir("runs/final_prediction")
         shutil.move(input_image_path, destination_folder)
         with open(os.path.join(destination_folder, 'inputImage.jpg'), "rb") as image_file:
             encoded_string = base64.b64encode(image_file.read())
