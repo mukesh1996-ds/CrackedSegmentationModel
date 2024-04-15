@@ -11,7 +11,6 @@ from Cracked_Detection.entity.artifacts_entity import (DataIngestionArtifact,
                                                        DataValidationArtifact,
                                                        ModelTrainerArtifact)
 
-
 class TrainPipeline:
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
